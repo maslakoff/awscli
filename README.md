@@ -1,6 +1,6 @@
 # AWS CLI in Docker
 
-Containerized AWS CLI and EB CL on alpine to avoid requiring the aws cli to be installed on CI machines.
+Containerized AWS CLI and EB CLI on alpine to avoid requiring the aws cli to be installed on CI machines.
 
 ## Build
 
