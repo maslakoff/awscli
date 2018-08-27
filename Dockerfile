@@ -19,9 +19,11 @@ RUN apk -v --update add \
     pip install --upgrade awsebcli && \
     rm /var/cache/apk/*
 
-VOLUME /root/.aws
-VOLUME /project
+VOLUME /home/circleci/.aws
+VOLUME /home/circleci/project
 
-WORKDIR /project
+WORKDIR /home/circleci/project
+
+USER circleci
 
 ENTRYPOINT ["aws"]
