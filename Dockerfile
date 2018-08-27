@@ -25,14 +25,13 @@ ENV PUID 3434
 ENV PGID 3434
 ENV CIRCLECI_USER circleci
 
-WORKDIR /home/${CIRCLECI_USER}/project
-
 RUN addgroup -g ${PGID} ${CIRCLECI_USER} && \
-    adduser -u ${PUID} -S ${CIRCLECI_USER} -G ${CIRCLECI_USER} && \
-    echo '${CIRCLECI_USER} ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-${CIRCLECI_USER} && \
-    chmod 0440 /etc/sudoers.d/50-${CIRCLECI_USER}
+    adduser -D -u ${PUID} -S ${CIRCLECI_USER} -G ${CIRCLECI_USER} && \
+    echo '${CIRCLECI_USER} ALL=NOPASSWD: ALL' >> /etc/sudoers.d/${CIRCLECI_USER} && \
+    chmod 0440 /etc/sudoers.d/${CIRCLECI_USER}
 
 USER ${CIRCLECI_USER}
 
+WORKDIR /home/${CIRCLECI_USER}/project
 
 ENTRYPOINT ["aws"]
