@@ -13,6 +13,7 @@ RUN apk -v --update add \
         gzip \
         ca-certificates \
         sudo \
+        bash \
         && \
     pip install --upgrade pip && \
     pip install urllib3==1.21.1 && \
@@ -20,6 +21,7 @@ RUN apk -v --update add \
     pip install --upgrade awsebcli && \
     rm /var/cache/apk/*
 
+RUN sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd
 
 ENV PUID 3434
 ENV PGID 3434
@@ -32,5 +34,8 @@ RUN addgroup -g ${PGID} ${CIRCLECI_USER} && \
 USER ${CIRCLECI_USER}
 
 WORKDIR /home/${CIRCLECI_USER}
+
+RUN touch .bashrc
+ENV BASH_ENV=/home/${CIRCLECI_USER}/.bashrc
 
 ENTRYPOINT ["aws"]
