@@ -13,6 +13,8 @@ RUN apk -v --update add \
         gzip \
         ca-certificates \
         && \
+    pip install --upgrade pip && \
+    pip install --upgrade urllib3==1.21.1 && \
     pip install --upgrade awscli && \
     pip install --upgrade awsebcli && \
     apk -v --purge del py-pip && \
