@@ -20,19 +20,19 @@ RUN apk -v --update add \
     pip install --upgrade awsebcli && \
     rm /var/cache/apk/*
 
-VOLUME /home/circleci/.aws
-VOLUME /home/circleci/project
-
-WORKDIR /home/circleci/project
 
 ENV PUID 3434
 ENV PGID 3434
+ENV CIRCLECI_USER circleci
 
-RUN addgroup -g ${PGID} circleci && \
-    adduser -u ${PUID} -S circleci -G circleci && \
-    echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci && \
-    chmod 0440 /etc/sudoers.d/50-circleci
+WORKDIR /home/${CIRCLECI_USER}/project
 
-USER circleci
+RUN addgroup -g ${PGID} ${CIRCLECI_USER} && \
+    adduser -u ${PUID} -S ${CIRCLECI_USER} -G ${CIRCLECI_USER} && \
+    echo '${CIRCLECI_USER} ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-${CIRCLECI_USER} && \
+    chmod 0440 /etc/sudoers.d/50-${CIRCLECI_USER}
+
+USER ${CIRCLECI_USER}
+
 
 ENTRYPOINT ["aws"]
