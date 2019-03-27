@@ -14,6 +14,7 @@ RUN apk -v --update add \
         ca-certificates \
         sudo \
         bash \
+        curl \
         && \
     pip install --upgrade pip && \
     pip install urllib3==1.21.1 && \
