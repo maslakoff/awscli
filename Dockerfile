@@ -37,7 +37,7 @@ ENV CIRCLECI_USER circleci
 
 RUN addgroup -g ${PGID} ${CIRCLECI_USER} && \
     adduser -u ${PUID} -S -D ${CIRCLECI_USER} -G  ${CIRCLECI_USER} -h /home/${CIRCLECI_USER} && \
-    echo '${CIRCLECI_USER} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+    echo "${CIRCLECI_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER ${CIRCLECI_USER}
 
